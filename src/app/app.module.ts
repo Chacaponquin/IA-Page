@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { AntdModule } from './modules/antd/antd.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
+import { OdCardComponent } from './components/od-card/od-card.component';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent, NavBarComponent, OdCardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

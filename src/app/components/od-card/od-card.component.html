@@ -1,0 +1,27 @@
+<div class="shadow-lg rounded-lg py-8 px-10 esm:px-4 esm:py-5">
+    <h1 class="font-firaCodeBold text-5xl esm:text-center">{{ odInf }}</h1>
+
+    <form action="" class="flex flex-col w-full space-y-4">
+        <nz-input-group nzAddOnBefore="Longitud" nzAddOnAfter="mm">
+            <nz-input-number [nzMin]="1" [nzStep]="1" class="w-full"></nz-input-number>
+        </nz-input-group>
+
+        <nz-input-group nzAddOnBefore="Potencia cornal" nzAddOnAfter="D">
+            <nz-input-number [nzMin]="1" [nzStep]="1" class="w-full"></nz-input-number>
+        </nz-input-group>
+
+        <nz-input-group nzAddOnBefore="Modelo">
+            <nz-select class="w-full">
+                <nz-option *ngFor="let medida of medidasLentes" [nzLabel]="medida.label" [nzValue]="medida.value"></nz-option>
+            </nz-select>
+        </nz-input-group>
+
+        <nz-input-group nzAddOnBefore="Historia Clinica" class="!w-full">
+            <nz-input-number [nzMin]="1" [nzStep]="1" class="w-full"></nz-input-number>
+        </nz-input-group>
+
+        <nz-input-group nzAddOnBefore="Regresion deseada" nzAddOnAfter="D">
+            <nz-input-number [nzMin]="1" [nzStep]="1" class="w-full"></nz-input-number>
+        </nz-input-group>
+    </form>
+</div>

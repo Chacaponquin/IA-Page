@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="flex w-full justify-center">
-    <form action="" class="flex w-full items-center py-7 esm:flex-col esm:space-x-0 exsm:px-3 esm:space-y-4 esm:px-12 sm:px-24 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6 md:px-32">
+<div class="flex flex-col w-full justify-center exsm:px-3 esm:px-7 sm:px-24 md:px-32">
+    <form action="" class="flex w-full items-center py-7 esm:flex-col esm:space-x-0 esm:space-y-4 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6">
         <nz-input-group nzAddOnBefore="Paciente">
             <input type="text" nz-input [nzSize]="'small'" />
         </nz-input-group>
@@ -27,4 +27,17 @@
             <input type="text" nz-input [nzSize]="'small'" />
         </nz-input-group>
     </form>
+
+    <div class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2">
+        <app-od-card *ngFor="let od of odCards" [odInf]="od"></app-od-card>
+    </div>
+
+    <div class="flex items-center w-full justify-center space-x-10 py-10 esm:py-7">
+        <button nz-button nzType="primary" class="font-bold" [nzSize]="'large'">
+      Calcular
+    </button>
+        <button nz-button nzType="default" class="font-bold" [nzSize]="'large'">
+      Reset
+    </button>
+    </div>
 </div>
