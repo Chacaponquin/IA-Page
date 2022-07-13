@@ -66,10 +66,7 @@
       <ng-container *nzModalContent>
         <div *ngFor="let text of disclaimerText">
           <h1 class="font-firaCodeBold text-xl">{{ text.title }}</h1>
-          <p
-            class="font-bold text-justify"
-            *ngFor="let paragraph of text.content"
-          >
+          <p class="text-justify" *ngFor="let paragraph of text.content">
             {{ paragraph }}
           </p>
         </div>
