@@ -1,43 +1,83 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="flex flex-col w-full justify-center exsm:px-3 esm:px-7 sm:px-24 md:px-32">
-    <form action="" class="flex w-full items-center py-7 esm:flex-col esm:space-x-0 esm:space-y-4 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6">
-        <nz-input-group nzAddOnBefore="Paciente">
-            <input type="text" nz-input [nzSize]="'small'" />
-        </nz-input-group>
+<div
+  class="flex flex-col w-full justify-center exsm:px-3 esm:px-7 sm:px-24 md:px-32"
+>
+  <form
+    action=""
+    class="flex w-full items-center py-7 esm:flex-col esm:space-x-0 esm:space-y-4 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6"
+  >
+    <nz-input-group nzAddOnBefore="Paciente">
+      <input type="text" nz-input [nzSize]="'small'" />
+    </nz-input-group>
 
-        <nz-input-group nzAddOnBefore="ID">
-            <input type="text" nz-input [nzSize]="'small'" />
-        </nz-input-group>
+    <nz-input-group nzAddOnBefore="ID">
+      <input type="text" nz-input [nzSize]="'small'" />
+    </nz-input-group>
 
-        <nz-input-group nzAddOnBefore="Sexo">
-            <nz-select class="w-full">
-                <nz-option [nzLabel]="'Hombre'" [nzValue]="'Zhejiang'"></nz-option>
-                <nz-option [nzLabel]="'Mujer'" [nzValue]="'Jiangsu'"></nz-option>
-            </nz-select>
-        </nz-input-group>
+    <nz-input-group nzAddOnBefore="Sexo">
+      <nz-select class="w-full">
+        <nz-option [nzLabel]="'Hombre'" [nzValue]="'Zhejiang'"></nz-option>
+        <nz-option [nzLabel]="'Mujer'" [nzValue]="'Jiangsu'"></nz-option>
+      </nz-select>
+    </nz-input-group>
 
-        <nz-input-group nzAddOnBefore="K-Index">
-            <nz-select class="w-full">
-                <nz-option *ngFor="let kIndex of kIndexes" [nzLabel]="kIndex" [nzValue]="kIndex"></nz-option>
-            </nz-select>
-        </nz-input-group>
+    <nz-input-group nzAddOnBefore="K-Index">
+      <nz-select class="w-full">
+        <nz-option
+          *ngFor="let kIndex of kIndexes"
+          [nzLabel]="kIndex"
+          [nzValue]="kIndex"
+        ></nz-option>
+      </nz-select>
+    </nz-input-group>
 
-        <nz-input-group nzAddOnBefore="Cirujano">
-            <input type="text" nz-input [nzSize]="'small'" />
-        </nz-input-group>
-    </form>
+    <nz-input-group nzAddOnBefore="Cirujano">
+      <input type="text" nz-input [nzSize]="'small'" />
+    </nz-input-group>
+  </form>
 
-    <div class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2">
-        <app-od-card *ngFor="let od of odCards" [odInf]="od"></app-od-card>
-    </div>
+  <div
+    class="grid lg :grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2"
+  >
+    <app-od-card *ngFor="let od of odCards" [odInf]="od"></app-od-card>
+  </div>
 
-    <div class="flex items-center w-full justify-center space-x-10 py-10 esm:py-7">
-        <button nz-button nzType="primary" class="font-bold" [nzSize]="'large'">
-      Calcular
+  <div
+    class="flex items-center w-full justify-center space-x-10 py-10 esm:py-7"
+  >
+    <button
+      nz-button
+      [nzType]="'primary'"
+      (click)="showModal()"
+      [nzSize]="'large'"
+    >
+      <span>Calcular</span>
     </button>
-        <button nz-button nzType="default" class="font-bold" [nzSize]="'large'">
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="The first Modal"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+      [nzOkText]="'Aceptar'"
+      [nzCancelText]="'Cancel'"
+      [nzTitle]="'Descargo de responsabilidad'"
+    >
+      <ng-container *nzModalContent>
+        <div *ngFor="let text of disclaimerText">
+          <h1 class="font-firaCodeBold text-xl">{{ text.title }}</h1>
+          <p
+            class="font-bold text-justify"
+            *ngFor="let paragraph of text.content"
+          >
+            {{ paragraph }}
+          </p>
+        </div>
+      </ng-container>
+    </nz-modal>
+
+    <button nz-button nzType="default" class="font-bold" [nzSize]="'large'">
       Reset
     </button>
-    </div>
+  </div>
 </div>
