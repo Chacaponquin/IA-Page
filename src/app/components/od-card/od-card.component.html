@@ -1,25 +1,77 @@
 <div class="shadow-lg rounded-lg py-8 px-10 esm:px-4 esm:py-5">
-  <h1 class="font-firaCodeBold text-5xl esm:text-center">{{ odInf }}</h1>
+  <h1 class="font-firaCodeBold text-5xl esm:text-center esm:text-3xl">
+    {{ odInf }}
+  </h1>
 
-  <form action="" class="flex flex-col w-full space-y-4">
-    <nz-input-group nzAddOnBefore="Longitud axial" nzAddOnAfter="mm">
+  <form action="" class="flex flex-col w-full gap-4">
+    <div class="flex flex-col gap-1" class="md:hidden">
+      <label for="">Longitud axial:</label>
       <nz-input-number
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
+        [(ngModel)]="data.longitud"
+        [ngModelOptions]="{ standalone: true }"
       ></nz-input-number>
-    </nz-input-group>
-
-    <nz-input-group nzAddOnBefore="Queratometria media" nzAddOnAfter="D">
+    </div>
+    <nz-input-group
+      nzAddOnBefore="Longitud axial"
+      nzAddOnAfter="mm"
+      class="md:flex hidden"
+    >
       <nz-input-number
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
+        [(ngModel)]="data.longitud"
+        [ngModelOptions]="{ standalone: true }"
       ></nz-input-number>
     </nz-input-group>
 
-    <nz-input-group nzAddOnBefore="Modelo de LIO">
-      <nz-select class="w-full">
+    <div class="flex flex-col gap-1" class="md:hidden">
+      <label for="">Queratometría media:</label>
+      <nz-input-number
+        [nzMin]="1"
+        [nzStep]="1"
+        class="w-full"
+        [(ngModel)]="data.queratometria"
+        [ngModelOptions]="{ standalone: true }"
+      ></nz-input-number>
+    </div>
+    <nz-input-group
+      nzAddOnBefore="Queratometría media"
+      nzAddOnAfter="D"
+      class="md:flex hidden"
+    >
+      <nz-input-number
+        [nzMin]="1"
+        [nzStep]="1"
+        class="w-full"
+        [(ngModel)]="data.queratometria"
+        [ngModelOptions]="{ standalone: true }"
+      ></nz-input-number>
+    </nz-input-group>
+
+    <div class="flex flex-col gap-1" class="md:hidden">
+      <label for="">Modelo de LIO:</label>
+      <nz-select
+        class="w-full"
+        [(ngModel)]="data.modelo"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <nz-option
+          *ngFor="let medida of medidasLentes"
+          [nzLabel]="medida.label"
+          [nzValue]="medida.value"
+        ></nz-option>
+      </nz-select>
+    </div>
+    <nz-input-group nzAddOnBefore="Modelo de LIO" class="md:flex hidden">
+      <nz-select
+        class="w-full"
+        [(ngModel)]="data.modelo"
+        [ngModelOptions]="{ standalone: true }"
+      >
         <nz-option
           *ngFor="let medida of medidasLentes"
           [nzLabel]="medida.label"
@@ -28,8 +80,26 @@
       </nz-select>
     </nz-input-group>
 
-    <nz-input-group nzAddOnBefore="Refracción deseada" nzAddOnAfter="D">
-      <nz-input-number [nzStep]="0.25" class="w-full"></nz-input-number>
+    <div class="flex flex-col gap-1" class="md:hidden">
+      <label for="">Refracción deseada:</label>
+      <nz-input-number
+        [nzStep]="0.25"
+        class="w-full"
+        [(ngModel)]="data.refraccion"
+        [ngModelOptions]="{ standalone: true }"
+      ></nz-input-number>
+    </div>
+    <nz-input-group
+      nzAddOnBefore="Refracción deseada"
+      nzAddOnAfter="D"
+      class="md:flex hidden"
+    >
+      <nz-input-number
+        [nzStep]="0.25"
+        class="w-full"
+        [(ngModel)]="data.refraccion"
+        [ngModelOptions]="{ standalone: true }"
+      ></nz-input-number>
     </nz-input-group>
   </form>
 </div>

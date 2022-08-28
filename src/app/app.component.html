@@ -22,23 +22,13 @@
       </nz-select>
     </nz-input-group>
 
-    <nz-input-group nzAddOnBefore="K-Index">
-      <nz-select class="w-full">
-        <nz-option
-          *ngFor="let kIndex of kIndexes"
-          [nzLabel]="kIndex"
-          [nzValue]="kIndex"
-        ></nz-option>
-      </nz-select>
-    </nz-input-group>
-
     <nz-input-group nzAddOnBefore="Cirujano">
       <input type="text" nz-input [nzSize]="'small'" />
     </nz-input-group>
   </form>
 
   <div
-    class="grid lg :grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2"
+    class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2"
   >
     <app-od-card *ngFor="let od of odCards" [odInf]="od"></app-od-card>
   </div>
@@ -74,7 +64,7 @@
     </nz-modal>
 
     <button nz-button nzType="default" class="font-bold" [nzSize]="'large'">
-      Reset
+      Reiniciar
     </button>
   </div>
 </div>

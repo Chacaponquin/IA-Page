@@ -10,6 +10,8 @@ export class OdCardComponent implements OnInit {
 
   constructor() {}
 
+  screenWidth: number = window.innerWidth;
+
   medidasLentes = [
     {
       label: 'UNVLens (PC156C60 / 2) ~ 118.2',
@@ -33,5 +35,17 @@ export class OdCardComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
+  data = {
+    longitud: 0,
+    queratometria: 0,
+    modelo: 0,
+    refraccion: 0,
+  };
+
+  ngOnInit(): void {
+    window.addEventListener(
+      'resize',
+      () => (this.screenWidth = window.innerWidth)
+    );
+  }
 }

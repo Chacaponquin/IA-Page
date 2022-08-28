@@ -7,6 +7,7 @@ import { AntdModule } from './modules/antd/antd.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './layout/nav-bar/nav-bar.component';
 import { OdCardComponent } from './components/od-card/od-card.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, OdCardComponent],
@@ -15,6 +16,7 @@ import { OdCardComponent } from './components/od-card/od-card.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     AntdModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
