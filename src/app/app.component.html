@@ -36,20 +36,13 @@
   <div
     class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2"
   >
-    <app-od-card *ngFor="let od of odCards" [odInf]="od"></app-od-card>
+    <app-od-card [parentForm]="left" [odInf]="'OJO IZQUIERDO'"></app-od-card>
+    <app-od-card [parentForm]="right" [odInf]="'OJO DERECHO'"></app-od-card>
   </div>
 
   <div
     class="flex items-center w-full justify-center space-x-10 py-10 esm:py-7"
   >
-    <button
-      nz-button
-      [nzType]="'primary'"
-      (click)="showModal()"
-      [nzSize]="'large'"
-    >
-      <span>Calcular</span>
-    </button>
     <nz-modal
       [(nzVisible)]="isVisible"
       nzTitle="The first Modal"
@@ -69,8 +62,51 @@
       </ng-container>
     </nz-modal>
 
-    <button nz-button nzType="default" class="font-bold" [nzSize]="'large'">
-      Reiniciar
+    <nz-modal
+      [(nzVisible)]="resultsVisible"
+      nzTitle="The first Modal"
+      (nzOnCancel)="resultsVisible = false"
+      (nzOnOk)="resultsVisible = false"
+      [nzOkText]="'Aceptar'"
+      [nzCancelText]="'Cancel'"
+      [nzTitle]="'Resultados'"
+    >
+      <ng-container *nzModalContent>
+        <div class="flex w-full flex-col gap-4">
+          <div class="flex gap-3 text-xl" *ngIf="results.left">
+            <h1 class="mb-0 font-firaCodeBold whitespace-nowrap">
+              Resultados Ojo Izquierdo:
+            </h1>
+            <p class="mb-0">{{ results.left }}</p>
+          </div>
+
+          <div class="flex gap-3 text-xl" *ngIf="results.right">
+            <h1 class="mb-0 font-firaCodeBold whitespace-nowrap">
+              Resultados Ojo Derecho:
+            </h1>
+            <p class="mb-0">{{ results.right }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </nz-modal>
+
+    <button
+      nz-button
+      [nzType]="'primary'"
+      (click)="showModal()"
+      [nzSize]="'large'"
+      class="font-firaCodeBold"
+    >
+      <span class="font-firaCodeBold">Calcular</span>
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      class="font-firaCodeBold"
+      [nzSize]="'large'"
+      (click)="handleReset()"
+    >
+      <span class="font-firaCodeBold">Reiniciar</span>
     </button>
   </div>
 </div>

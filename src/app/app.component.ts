@@ -1,14 +1,49 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+export interface IData {
+  al: number;
+  k: number;
+  k1: number;
+  k2: number;
+  re: number;
+  a: 'PCI156C60' | 'PCF60' | 'IO_FLEX' | 'SAF6125' | 'OCUFLEX';
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  isVisible = false;
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private notification: NzNotificationService
+  ) {}
 
-  odCards = ['OJO DERECHO', 'OJO IZQUIERO'];
+  isVisible = false;
+  resultsVisible = false;
+
+  results: { left: number | null; right: null | number } = {
+    left: null,
+    right: null,
+  };
+
+  left = this.fb.group({
+    al: [null, Validators.required],
+    k: [null, Validators.required],
+    re: [null, Validators.required],
+    a: [null, Validators.required],
+  });
+  right = this.fb.group({
+    al: [null, Validators.required],
+    k: [null, Validators.required],
+    re: [null, Validators.required],
+    a: [null, Validators.required],
+  });
 
   disclaimerText = [
     {
@@ -26,12 +61,41 @@ export class AppComponent {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
+
+    if (this.left.valid || this.right.valid) {
+      if (this.left.valid)
+        this.http
+          .post<{ rpred: number }>(environment.url, this.left.value)
+          .subscribe(
+            (data) => (this.results = { ...this.results, left: data.rpred })
+          );
+
+      if (this.right.valid)
+        this.http
+          .post<{ rpred: number }>(environment.url, this.right.value)
+          .subscribe(
+            (data) => (this.results = { ...this.results, right: data.rpred })
+          );
+
+      this.resultsVisible = true;
+    } else {
+      this.notification.error(
+        'Falta de Datos',
+        'Debe llenar alguno de los dos formularios.',
+        {
+          nzKey: 'key',
+        }
+      );
+    }
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+  }
+
+  handleReset() {
+    this.left.reset();
+    this.right.reset();
   }
 }

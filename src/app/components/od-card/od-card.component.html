@@ -3,15 +3,14 @@
     {{ odInf }}
   </h1>
 
-  <form action="" class="flex flex-col w-full gap-4">
+  <form action="" class="flex flex-col w-full gap-4" [formGroup]="parentForm">
     <div class="flex flex-col gap-1" class="md:hidden">
       <label for="">Longitud axial:</label>
       <nz-input-number
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
-        [(ngModel)]="data.longitud"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="al"
       ></nz-input-number>
     </div>
     <nz-input-group
@@ -23,8 +22,7 @@
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
-        [(ngModel)]="data.longitud"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="al"
       ></nz-input-number>
     </nz-input-group>
 
@@ -34,8 +32,7 @@
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
-        [(ngModel)]="data.queratometria"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="k"
       ></nz-input-number>
     </div>
     <nz-input-group
@@ -47,35 +44,26 @@
         [nzMin]="1"
         [nzStep]="1"
         class="w-full"
-        [(ngModel)]="data.queratometria"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="k"
       ></nz-input-number>
     </nz-input-group>
 
     <div class="flex flex-col gap-1" class="md:hidden">
       <label for="">Modelo de LIO:</label>
-      <nz-select
-        class="w-full"
-        [(ngModel)]="data.modelo"
-        [ngModelOptions]="{ standalone: true }"
-      >
+      <nz-select class="w-full" formControlName="a">
         <nz-option
           *ngFor="let medida of medidasLentes"
           [nzLabel]="medida.label"
-          [nzValue]="medida.value"
+          [nzValue]="medida.label"
         ></nz-option>
       </nz-select>
     </div>
     <nz-input-group nzAddOnBefore="Modelo de LIO" class="md:flex hidden">
-      <nz-select
-        class="w-full"
-        [(ngModel)]="data.modelo"
-        [ngModelOptions]="{ standalone: true }"
-      >
+      <nz-select class="w-full" formControlName="a">
         <nz-option
           *ngFor="let medida of medidasLentes"
           [nzLabel]="medida.label"
-          [nzValue]="medida.value"
+          [nzValue]="medida.label"
         ></nz-option>
       </nz-select>
     </nz-input-group>
@@ -85,8 +73,7 @@
       <nz-input-number
         [nzStep]="0.25"
         class="w-full"
-        [(ngModel)]="data.refraccion"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="re"
       ></nz-input-number>
     </div>
     <nz-input-group
@@ -97,8 +84,7 @@
       <nz-input-number
         [nzStep]="0.25"
         class="w-full"
-        [(ngModel)]="data.refraccion"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="re"
       ></nz-input-number>
     </nz-input-group>
   </form>

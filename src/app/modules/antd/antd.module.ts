@@ -6,6 +6,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   declarations: [],
@@ -16,6 +17,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
     NzButtonModule,
     NzModalModule,
     NzFormModule,
+    NzNotificationModule,
   ],
   imports: [CommonModule, NzInputModule, NzSelectModule, NzModalModule],
 })

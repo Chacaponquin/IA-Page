@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-od-card',
@@ -7,32 +8,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OdCardComponent implements OnInit {
   @Input() odInf: String = '';
+  @Input() parentForm: FormGroup = this.fb.group({});
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   screenWidth: number = window.innerWidth;
 
   medidasLentes = [
-    {
-      label: 'UNVLens (PC156C60 / 2) ~ 118.2',
-      value: 118.2,
-    },
-    {
-      label: 'UVLens (PCF60) ~ 118.4',
-      value: 118.4,
-    },
-    {
-      label: 'Ioglex ~ 118.0',
-      value: 118.0,
-    },
-    {
-      label: 'SAF 6125 ~ 118.0',
-      value: 118.0,
-    },
-    {
-      label: 'Ocuflax ~ 118.0',
-      value: 118.0,
-    },
+    { label: 'PCI156C60', value: 118.2 },
+    { label: 'PCF60', value: 118.4 },
+    { label: 'IO_FLEX', value: 118 },
+    { label: 'SAF6125', value: 118 },
+    { label: 'OCUFLEX', value: 118 },
   ];
 
   data = {
