@@ -1,19 +1,31 @@
 <div
-  class="py-6 flex px-24 justify-between items-center shadow-lg esm:justify-center"
+  class="py-6 flex px-24 justify-between items-center shadow-lg esm:justify-center dark:bg-dark_color"
 >
-  <h1 class="text-4xl mb-0 font-bold font-firaCodeBold esm:hidden">PMC</h1>
+  <h1
+    class="text-4xl mb-0 font-bold font-firaCodeBold esm:hidden dark:text-white"
+  >
+    PMC
+  </h1>
 
   <div
-    class="flex space-x-12 font-bold font-firaCodeBold text-lg exm:space-x-6 esm:space-x-10 esm:text-base items-center"
+    class="flex space-x-12 font-bold font-firaCodeBold text-lg exm:space-x-6 esm:space-x-10 esm:text-base items-center dark:text-white"
   >
     <p class="mb-0 cursor-pointer">Acerca</p>
     <p class="mb-0 cursor-pointer">Constantes</p>
     <p class="mb-0 cursor-pointer">Contacto</p>
 
-    <button
-      class="lg:block hidden px-10 py-2 border-2 border-black text-black bg-white transition-all duration-300 hover:bg-black hover:text-white"
-    >
-      ESP
-    </button>
+    <div class="flex gap-4">
+      <button
+        class="lg:block hidden px-10 py-1 border-2 border-black dark:border-white text-black bg-white transition-all duration-300 hover:bg-black dark:hover:bg-dark_color hover:text-white font-firaCodeBold"
+      >
+        ESP
+      </button>
+      <button
+        class="lg:block hidden px-10 py-1 border-2 border-black dark:border-white text-black bg-white transition-all duration-300 hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white font-firaCodeBold dark:bg-dark_color dark:text-white"
+        (click)="changeMode.emit(!mode)"
+      >
+        {{ modeText() }}
+      </button>
+    </div>
   </div>
 </div>

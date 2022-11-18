@@ -1,17 +1,26 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar (changeMode)="changeMode($event)" [mode]="mode"></app-nav-bar>
 
 <div
-  class="flex flex-col w-full justify-center exsm:px-3 esm:px-7 sm:px-24 md:px-32"
+  class="flex flex-col w-full justify-center exsm:px-3 esm:px-7 sm:px-24 md:px-32 dark:bg-dark_color"
 >
   <form
     action=""
-    class="flex w-full items-center py-7 esm:flex-col esm:space-x-0 esm:space-y-4 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6"
+    class="flex w-full items-center pt-3 pb-7 esm:flex-col esm:space-x-0 esm:space-y-4 sm:flex-col sm:space-x-0 sm:space-y-4 lg:flex-row lg:space-y-0 lg:space-x-6"
   >
-    <button
-      class="w-full border-2 border-black bg-white py-2 text-black transition-all duration-300 hover:bg-black hover:text-white font-firaCodeBold text-xl lg:hidden"
-    >
-      ESP
-    </button>
+    <div class="grid grid-cols-2 gap-4 w-full lg:hidden">
+      <button
+        class="w-full border-2 border-black dark:border-white bg-white py-1 text-black transition-all duration-300 hover:bg-black dark:hover:bg-dark_color hover:text-white font-firaCodeBold text-xl"
+      >
+        ESP
+      </button>
+
+      <button
+        class="px-10 py-1 border-2 border-black dark:border-white text-black bg-white transition-all duration-300 hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white font-firaCodeBold dark:bg-dark_color dark:text-white text-xl"
+        (click)="changeMode(!mode)"
+      >
+        {{ modeText() }}
+      </button>
+    </div>
 
     <nz-input-group nzAddOnBefore="Paciente">
       <input type="text" nz-input [nzSize]="'small'" />
@@ -33,16 +42,32 @@
     </nz-input-group>
   </form>
 
-  <div
-    class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:grid-rows-2 esm:gap-2"
-  >
-    <app-od-card [parentForm]="left" [odInf]="'OJO IZQUIERDO'"></app-od-card>
-    <app-od-card [parentForm]="right" [odInf]="'OJO DERECHO'"></app-od-card>
+  <div class="grid lg:grid-cols-2 gap-6 esm:grid-cols-1 esm:gap-2">
+    <app-od-card
+      [parentForm]="left"
+      [odInf]="'OJO IZQUIERDO'"
+      *ngIf="seeLeft"
+    ></app-od-card>
+    <app-od-card
+      [parentForm]="right"
+      [odInf]="'OJO DERECHO'"
+      *ngIf="seeRight"
+    ></app-od-card>
+
+    <div class="flex justify-end mt-4" *ngIf="!seeRight">
+      <button
+        nz-button
+        [nzType]="'primary'"
+        [nzSize]="'large'"
+        class="font-firaCodeBold"
+        (click)="seeRight = true"
+      >
+        <span class="font-firaCodeBold">Añadir otro ojo</span>
+      </button>
+    </div>
   </div>
 
-  <div
-    class="flex items-center w-full justify-center space-x-10 py-10 esm:py-7"
-  >
+  <div class="flex items-center w-full justify-center">
     <nz-modal
       [(nzVisible)]="isVisible"
       nzTitle="The first Modal"
@@ -73,14 +98,20 @@
     >
       <ng-container *nzModalContent>
         <div class="flex w-full flex-col gap-4">
-          <div class="flex gap-3 text-xl" *ngIf="results.left">
+          <div
+            class="flex gap-3 text-xl items-center esm:text-base"
+            *ngIf="results.left"
+          >
             <h1 class="mb-0 font-firaCodeBold whitespace-nowrap">
               Resultados Ojo Izquierdo:
             </h1>
             <p class="mb-0">{{ results.left }}</p>
           </div>
 
-          <div class="flex gap-3 text-xl" *ngIf="results.right">
+          <div
+            class="flex gap-3 text-xl items-center esm:text-base"
+            *ngIf="results.right"
+          >
             <h1 class="mb-0 font-firaCodeBold whitespace-nowrap">
               Resultados Ojo Derecho:
             </h1>
@@ -90,23 +121,40 @@
       </ng-container>
     </nz-modal>
 
-    <button
-      nz-button
-      [nzType]="'primary'"
-      (click)="showModal()"
-      [nzSize]="'large'"
-      class="font-firaCodeBold"
-    >
-      <span class="font-firaCodeBold">Calcular</span>
-    </button>
-    <button
-      nz-button
-      nzType="default"
-      class="font-firaCodeBold"
-      [nzSize]="'large'"
-      (click)="handleReset()"
-    >
-      <span class="font-firaCodeBold">Reiniciar</span>
-    </button>
+    <div class="flex flex-col items-center py-10 esm:py-7 w-full">
+      <div class="flex items-center w-full mb-5 justify-start">
+        <label nz-checkbox class="mr-4" [(ngModel)]="reedDocs"></label>
+        <div class="uppercase text-lg whitespace-nowrap dark:text-white">
+          he leido y acepto los
+          <h1
+            class="text-blue-500 mb-0 inline-block font-firaCodeBold cursor-pointer transition-all duration-300 hover:opacity-60"
+            (click)="showModal()"
+          >
+            terminos y condiciones
+          </h1>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-10">
+        <button
+          nz-button
+          [nzType]="'primary'"
+          [nzSize]="'large'"
+          class="font-firaCodeBold"
+          (click)="calculate()"
+        >
+          <span class="font-firaCodeBold">Calcular</span>
+        </button>
+        <button
+          nz-button
+          nzType="default"
+          class="font-firaCodeBold"
+          [nzSize]="'large'"
+          (click)="handleReset()"
+        >
+          <span class="font-firaCodeBold">Reiniciar</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

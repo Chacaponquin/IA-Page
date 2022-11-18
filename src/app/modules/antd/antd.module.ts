@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzModalModule,
     NzFormModule,
     NzNotificationModule,
+    NzCheckboxModule,
   ],
   imports: [CommonModule, NzInputModule, NzSelectModule, NzModalModule],
 })

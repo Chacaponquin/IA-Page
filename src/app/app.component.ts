@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -12,17 +12,41 @@ export interface IData {
   re: number;
   a: 'PCI156C60' | 'PCF60' | 'IO_FLEX' | 'SAF6125' | 'OCUFLEX';
 }
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  seeLeft = true;
+  seeRight = false;
+
+  reedDocs = false;
+
+  mode = false;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private notification: NzNotificationService
   ) {}
+
+  ngOnInit(): void {
+    if (
+      localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+      this.mode = false;
+      localStorage.setItem('color-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      this.mode = true;
+      localStorage.setItem('color-theme', 'light');
+    }
+  }
 
   isVisible = false;
   resultsVisible = false;
@@ -56,38 +80,59 @@ export class AppComponent {
     },
   ];
 
+  changeMode(value: boolean) {
+    if (value) {
+      document.documentElement.classList.remove('dark');
+      this.mode = true;
+    } else {
+      document.documentElement.classList.add('dark');
+      this.mode = false;
+    }
+  }
+
   showModal(): void {
     this.isVisible = true;
   }
 
-  handleOk(): void {
-    this.isVisible = false;
+  calculate() {
+    if (this.reedDocs) {
+      if (this.left.valid || this.right.valid) {
+        if (this.left.valid)
+          this.http
+            .post<{ rpred: number }>(environment.url, this.left.value)
+            .subscribe(
+              (data) => (this.results = { ...this.results, left: data.rpred })
+            );
 
-    if (this.left.valid || this.right.valid) {
-      if (this.left.valid)
-        this.http
-          .post<{ rpred: number }>(environment.url, this.left.value)
-          .subscribe(
-            (data) => (this.results = { ...this.results, left: data.rpred })
-          );
+        if (this.right.valid)
+          this.http
+            .post<{ rpred: number }>(environment.url, this.right.value)
+            .subscribe(
+              (data) => (this.results = { ...this.results, right: data.rpred })
+            );
 
-      if (this.right.valid)
-        this.http
-          .post<{ rpred: number }>(environment.url, this.right.value)
-          .subscribe(
-            (data) => (this.results = { ...this.results, right: data.rpred })
-          );
-
-      this.resultsVisible = true;
-    } else {
+        this.resultsVisible = true;
+      } else {
+        this.notification.error(
+          'Falta de Datos',
+          'Debe llenar alguno de los dos formularios.',
+          {
+            nzKey: 'key',
+          }
+        );
+      }
+    } else
       this.notification.error(
-        'Falta de Datos',
-        'Debe llenar alguno de los dos formularios.',
+        'Lee los términos y condiciones',
+        'Lee los terminos y condiciones para poder hacer los cálculos.',
         {
           nzKey: 'key',
         }
       );
-    }
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
   }
 
   handleCancel(): void {
@@ -97,5 +142,9 @@ export class AppComponent {
   handleReset() {
     this.left.reset();
     this.right.reset();
+  }
+
+  modeText() {
+    return this.mode ? 'LIGHT' : 'DARK';
   }
 }
