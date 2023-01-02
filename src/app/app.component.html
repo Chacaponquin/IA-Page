@@ -47,11 +47,13 @@
       [parentForm]="left"
       [odInf]="'OJO IZQUIERDO'"
       *ngIf="seeLeft"
+      [medidasLentes]="medidasLentes"
     ></app-od-card>
     <app-od-card
       [parentForm]="right"
       [odInf]="'OJO DERECHO'"
       *ngIf="seeRight"
+      [medidasLentes]="medidasLentes"
     ></app-od-card>
 
     <div class="flex justify-end mt-4" *ngIf="!seeRight">

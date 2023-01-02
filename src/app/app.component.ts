@@ -4,6 +4,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+export interface IModelIO {
+  value: string;
+  label: string;
+}
+
 export interface IData {
   al: number;
   k: number;
@@ -19,6 +24,15 @@ export interface IData {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  medidasLentes: IModelIO[] = [
+    { label: 'PCI156C60', value: 'PCI156C60' },
+    { label: 'PCF60', value: 'PCF60' },
+    { label: 'IO_FLEX', value: 'IO_FLEX' },
+    { label: 'SAF6125', value: 'SAF6125' },
+    { label: 'OCUFLEX', value: 'OCUFLEX' },
+    { label: 'Otro', value: '' },
+  ];
+
   seeLeft = true;
   seeRight = false;
 
@@ -60,13 +74,13 @@ export class AppComponent implements OnInit {
     al: [null, Validators.required],
     k: [null, Validators.required],
     re: [null, Validators.required],
-    a: [null, Validators.required],
+    a: [this.medidasLentes[0].label, Validators.required],
   });
   right = this.fb.group({
     al: [null, Validators.required],
     k: [null, Validators.required],
     re: [null, Validators.required],
-    a: [null, Validators.required],
+    a: [this.medidasLentes[0].label, Validators.required],
   });
 
   disclaimerText = [
