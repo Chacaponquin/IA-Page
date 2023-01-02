@@ -1,5 +1,5 @@
 <div
-  class="shadow-lg rounded-lg py-8 px-10 esm:px-4 esm:py-5 dark:border-2 dark:border-white mt-10"
+  class="shadow-lg rounded py-8 px-10 esm:px-4 esm:py-5 dark:border-2 dark:border-white mt-10"
 >
   <h1
     class="font-firaCodeBold text-5xl esm:text-center esm:text-3xl dark:text-white"
@@ -58,7 +58,7 @@
         <nz-option
           *ngFor="let medida of medidasLentes"
           [nzLabel]="medida.label"
-          [nzValue]="medida.label"
+          [nzValue]="medida.value"
         ></nz-option>
       </nz-select>
     </div>
@@ -67,10 +67,24 @@
         <nz-option
           *ngFor="let medida of medidasLentes"
           [nzLabel]="medida.label"
-          [nzValue]="medida.label"
+          [nzValue]="medida.value"
         ></nz-option>
       </nz-select>
     </nz-input-group>
+
+    <div
+      *ngIf="!filterModels(parentForm.value.a)"
+      class="w-full flex gap-1 pl-5 items-center"
+    >
+      <nz-input-group nzAddOnBefore="Otro modelo" class="flex">
+        <input
+          type="text"
+          nz-input
+          placeholder="Otro modelo"
+          formControlName="a"
+        />
+      </nz-input-group>
+    </div>
 
     <div class="flex flex-col gap-1" class="md:hidden">
       <label for="" class="dark:text-white">Refracción deseada:</label>

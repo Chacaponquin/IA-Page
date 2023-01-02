@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         primary_color: "#3498db",
-        dark_color: "#1e272e",
+        dark_color: "#222f3e",
       },
       fontFamily: {
         firaCodeBold: ["FiraCodeBold"],
